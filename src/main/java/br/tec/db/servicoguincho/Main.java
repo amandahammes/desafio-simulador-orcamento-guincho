@@ -9,14 +9,18 @@ import br.tec.db.servicoguincho.simulador.Veiculo;
 import br.tec.db.servicoguincho.simulador.cargas.EstadoConservacao;
 import br.tec.db.servicoguincho.simulador.cargas.TipoVeiculo;
 
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
         SimuladorDeOrcamento simulador;
         Veiculo carroNovo;
         Trajeto centroParaBairroA;
+        //Scanner scan = new Scanner(System.in);
 
         simulador = new SimuladorDeOrcamentoImpl();
+
         carroNovo = new VeiculoImpl(TipoVeiculo.CARRO, EstadoConservacao.NOVO);
         centroParaBairroA = new TrajetoImpl("C", "A");
 
