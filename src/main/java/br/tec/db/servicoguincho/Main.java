@@ -15,15 +15,6 @@ public class Main {
 
     public static void main(String[] args) {
         Menu menu = new Menu();
-        menu.escolherCarro();
-
-        Veiculo veiculo = new VeiculoImpl(menu.tipoVeiculo, menu.estadoConservacaoString);
-        Trajeto trajeto = new TrajetoImpl(menu.escolhaOrigem, menu.escolhaDestino);
-        SimuladorDeOrcamento simulador = new SimuladorDeOrcamentoImpl(menu.getEscolhaCarro(), menu.getEstadoConservacao(), menu.getEscolhaGuincho());
-
-        double custoCenario = simulador.calcularCustoTotal(veiculo, trajeto);
-        System.out.println("Custo Total do Serviço: R$" + custoCenario);
-
-
+        menu.mostrarMenu();
     }
 }

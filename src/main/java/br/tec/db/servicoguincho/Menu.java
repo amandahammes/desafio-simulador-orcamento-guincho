@@ -1,5 +1,11 @@
 package br.tec.db.servicoguincho;
 
+import br.tec.db.servicoguincho.implementacoes.SimuladorDeOrcamentoImpl;
+import br.tec.db.servicoguincho.implementacoes.TrajetoImpl;
+import br.tec.db.servicoguincho.implementacoes.VeiculoImpl;
+import br.tec.db.servicoguincho.simulador.SimuladorDeOrcamento;
+import br.tec.db.servicoguincho.simulador.Trajeto;
+import br.tec.db.servicoguincho.simulador.Veiculo;
 import br.tec.db.servicoguincho.simulador.cargas.EstadoConservacao;
 import br.tec.db.servicoguincho.simulador.cargas.TipoVeiculo;
 import java.util.Scanner;
@@ -16,17 +22,51 @@ public class Menu {
     public int escolhaGuincho;
     public String escolhaDestino;
     public String escolhaOrigem;
+    public int opcao;
     Scanner scan = new Scanner(System.in);
 
-   public void escolherCarro() throws IllegalArgumentException {
+   public void mostrarMenu(){
        System.out.println("***** SIMULADOR ORÇAMENTO GUINCHO *****");
+       System.out.println("                  MENU                 \n");
+       System.out.println("Digite o número correspondente a opção desejada: ");
+       System.out.println("1 - Escolher Carro e Estado de Conservação;");
+       System.out.println("2 - Escolher Guincho;");
+       System.out.println("3 - Escolher Trajeto;");
+       System.out.println("4 - Mostrar orçamento;");
+       System.out.println("5 - Sair;");
+       opcao = scan.nextInt();
+       switch (opcao){
+           case 1:
+               escolherCarro();
+               break;
+           case 2:
+               escolherGuincho();
+               break;
+           case 3:
+               escolherOrigem();
+               break;
+           case 4:
+               Veiculo veiculo = new VeiculoImpl(tipoVeiculo, estadoConservacaoString);
+               Trajeto trajeto = new TrajetoImpl(escolhaOrigem, escolhaDestino);
+               SimuladorDeOrcamento simulador = new SimuladorDeOrcamentoImpl(getEscolhaCarro(), getEstadoConservacao(), getEscolhaGuincho());
+               double custoCenario = simulador.calcularCustoTotal(veiculo, trajeto);
+               System.out.println("Custo Total do Serviço: R$" + custoCenario);
+               break;
+           default:
+               System.out.println("Opção inválida. Repita a operação.");
+               mostrarMenu();
+       }
+   }
+
+   public void escolherCarro() throws IllegalArgumentException {
+
        System.out.println("Escolha o carro a ser guinchado digitando o número correspondente ao carro: ");
        System.out.println("1 - CARRO;");
        System.out.println("2 - MINIVAN;");
        System.out.println("3 - ONIBUS;");
        System.out.println("4 - CAMINHAO;");
        escolhaCarro = scan.nextInt();
-       if (escolhaCarro<=4 && escolhaCarro > 0){
+       if (escolhaCarro <= 4 && escolhaCarro > 0){
            escolherEstadoConservacao();
        } else {
            throw new IllegalArgumentException("Número não corresponde a nenhum carro.");
@@ -40,11 +80,11 @@ public class Menu {
        estadoConservacao = scan.nextInt();
 
        if (estadoConservacao<=2 && estadoConservacao > 0){
-           escolherGuincho();
+           transformarEstadoConservacaoString();
        } else {
            throw new IllegalArgumentException("Número não corresponde a nenhum estado de conservação.");
        }
-       transformarEstadoConservacaoString();
+       mostrarMenu();
    }
 
    public void escolherGuincho(){
@@ -54,7 +94,7 @@ public class Menu {
        System.out.println("3 - Caminhão guincho de plataforma: Utilizado para veículos leves. Taxa de deslocamento: R$ 5,00 por quilômetro.");
        escolhaGuincho = scan.nextInt();
        scan.nextLine();
-       escolherOrigem();
+       mostrarMenu();
    }
 
    public String escolherOrigem(){
@@ -75,6 +115,7 @@ public class Menu {
        System.out.println("B - Para Bairro B;");
        System.out.println("C - Para CENTRO;");
        escolhaDestino = scan.next().toUpperCase();
+       mostrarMenu();
        return escolhaDestino;
    }
 
