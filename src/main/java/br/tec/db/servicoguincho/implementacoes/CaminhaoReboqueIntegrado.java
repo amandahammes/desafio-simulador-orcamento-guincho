@@ -9,6 +9,6 @@ public class CaminhaoReboqueIntegrado extends Guincho {
 
     @Override
     public double calcularCustoDeslocamento(Trajeto trajeto) {
-        return 10.0 * trajeto.getDistanciaEmKM(); // Defina a taxa de deslocamento diretamente aqui
+        return 10.0 * trajeto.distanciaEmKM(); // Defina a taxa de deslocamento diretamente aqui
     }
 }

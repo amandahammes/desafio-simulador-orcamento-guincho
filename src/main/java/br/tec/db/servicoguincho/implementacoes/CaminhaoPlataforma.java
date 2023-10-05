@@ -9,6 +9,6 @@ public class CaminhaoPlataforma extends Guincho{
 
     @Override
     public double calcularCustoDeslocamento(Trajeto trajeto) {
-        return 5.0 * trajeto.getDistanciaEmKM();
+        return 5.0 * trajeto.distanciaEmKM();
     }
 }

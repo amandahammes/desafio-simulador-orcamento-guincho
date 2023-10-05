@@ -14,19 +14,15 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        SimuladorDeOrcamento simulador;
-        Veiculo carroNovo;
-        Trajeto centroParaBairroA;
-        //Scanner scan = new Scanner(System.in);
+        Menu menu = new Menu();
+        menu.escolherCarro();
 
-        simulador = new SimuladorDeOrcamentoImpl();
+        Veiculo veiculo = new VeiculoImpl(menu.tipoVeiculo, menu.estadoConservacaoString);
+        Trajeto trajeto = new TrajetoImpl(menu.escolhaOrigem, menu.escolhaDestino);
+        SimuladorDeOrcamento simulador = new SimuladorDeOrcamentoImpl(menu.getEscolhaCarro(), menu.getEstadoConservacao(), menu.getEscolhaGuincho());
 
-        carroNovo = new VeiculoImpl(TipoVeiculo.CARRO, EstadoConservacao.NOVO);
-        centroParaBairroA = new TrajetoImpl("C", "A");
-
-        double custoCenario1 = simulador.calcularCustoTotal(carroNovo, centroParaBairroA);
-
-        System.out.println("Cenário 1 - Custo Total do Serviço: R$" + custoCenario1);
+        double custoCenario = simulador.calcularCustoTotal(veiculo, trajeto);
+        System.out.println("Custo Total do Serviço: R$" + custoCenario);
 
 
     }

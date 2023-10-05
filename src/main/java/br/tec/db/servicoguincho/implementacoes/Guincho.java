@@ -10,6 +10,6 @@ abstract class Guincho {
     }
 
     public double calcularCustoDeslocamento(Trajeto trajeto) {
-        return taxaDeslocamentoPorKM * trajeto.getDistanciaEmKM();
+        return taxaDeslocamentoPorKM * trajeto.distanciaEmKM();
     }
 }

@@ -1,18 +1,21 @@
 package br.tec.db.servicoguincho;
 
-import br.tec.db.servicoguincho.implementacoes.CaminhaoPlataforma;
-import br.tec.db.servicoguincho.implementacoes.CaminhaoReboqueIntegrado;
-import br.tec.db.servicoguincho.simulador.Guincho;
-import br.tec.db.servicoguincho.simulador.Trajeto;
-
+import br.tec.db.servicoguincho.simulador.cargas.EstadoConservacao;
+import br.tec.db.servicoguincho.simulador.cargas.TipoVeiculo;
 import java.util.Scanner;
 
+import static br.tec.db.servicoguincho.simulador.cargas.EstadoConservacao.*;
+import static br.tec.db.servicoguincho.simulador.cargas.TipoVeiculo.*;
+
 public class Menu {
-    public static int escolhaCarro;
-    public static int estadoConservacao;
-    public static int escolhaGuincho;
-    public static String escolhaDestino;
-    public static String escolhaOrigem;
+    public int escolhaCarro;
+
+    public TipoVeiculo tipoVeiculo;
+    public int estadoConservacao;
+    public EstadoConservacao estadoConservacaoString;
+    public int escolhaGuincho;
+    public String escolhaDestino;
+    public String escolhaOrigem;
     Scanner scan = new Scanner(System.in);
 
    public void escolherCarro() throws IllegalArgumentException {
@@ -41,6 +44,7 @@ public class Menu {
        } else {
            throw new IllegalArgumentException("Número não corresponde a nenhum estado de conservação.");
        }
+       transformarEstadoConservacaoString();
    }
 
    public void escolherGuincho(){
@@ -60,6 +64,7 @@ public class Menu {
        System.out.println("B - Para Bairro B;");
        System.out.println("C - Para CENTRO;");
        escolhaOrigem = scan.next().toUpperCase();
+       transformarCarroEmTipoVeiculo();
        escolherDestino();
        return escolhaDestino;
    }
@@ -73,24 +78,44 @@ public class Menu {
        return escolhaDestino;
    }
 
-    public static int getEscolhaCarro() {
+   public void transformarCarroEmTipoVeiculo(){
+       if (escolhaCarro == 1){
+           tipoVeiculo = CARRO;
+       } else if (escolhaCarro == 2) {
+           tipoVeiculo = MINIVAN;
+       } else if (escolhaCarro == 3) {
+           tipoVeiculo = ONIBUS;
+       } else if (escolhaCarro == 4) {
+           tipoVeiculo = CAMINHAO;
+       }
+   }
+
+    public void transformarEstadoConservacaoString(){
+        if (estadoConservacao == 1){
+            estadoConservacaoString = NOVO;
+        } else if (estadoConservacao == 2) {
+            estadoConservacaoString = QUEBRADO;
+        }
+    }
+
+    public int getEscolhaCarro() {
         return escolhaCarro;
     }
 
-    public static int getEstadoConservacao() {
+    public int getEstadoConservacao() {
         return estadoConservacao;
     }
 
-    public static int getEscolhaGuincho() {
+    public int getEscolhaGuincho() {
         return escolhaGuincho;
     }
 
 
-    public static String getEscolhaDestino() {
+    public String getEscolhaDestino() {
         return escolhaDestino;
     }
 
-    public static String getEscolhaOrigem() {
+    public String getEscolhaOrigem() {
         return escolhaOrigem;
     }
 
